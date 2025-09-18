@@ -13,14 +13,9 @@ spec:
       labels:
         app: backend
     spec:
-      initContainers:
-      - name: wait-before-start
-        image: busybox:1.36
-        command: ["sh", "-c", "echo '⏳ Waiting 10s before starting backend...' && sleep 10"]
       containers:
       - name: backend
         image: nginx:alpine
-        command: ["sh", "-c", "echo Backend running && sleep 3600"]
         ports:
           - containerPort: 80
 ---

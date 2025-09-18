@@ -13,14 +13,9 @@ spec:
       labels:
         app: frontend
     spec:
-      initContainers:
-      - name: wait-before-start
-        image: busybox:1.36
-        command: ["sh", "-c", "echo '⏳ Waiting 10s before starting frontend...' && sleep 10"]
       containers:
       - name: frontend
         image: nginx:alpine
-        command: ["sh", "-c", "echo Frontend running && sleep 3600"]
         env:
         - name: BACKEND_URL
           value: "http://backend"
