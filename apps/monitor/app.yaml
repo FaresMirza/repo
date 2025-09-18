@@ -1,24 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: app-of-apps
+  name: monitor
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"   # monitor comes last
 spec:
   project: default
   source:
-    repoURL: https://github.com/FaresMirza/repo
+    repoURL: https://github.com/FaresMirza/repo   # change to your repo URL
     targetRevision: main
-    path: apps
-    directory:
-      recurse: true
+    path: apps/monitor
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: wave-test
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - ApplyOutOfSyncOnly=true
-      - RespectResourceHealth=true
